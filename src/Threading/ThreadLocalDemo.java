@@ -87,3 +87,29 @@ class MyWaitNotify2{
     }
   }
 }
+
+//Supirious wakeup
+class MyWaitNotify3{
+
+    MonitorObject myMonitorObject = new MonitorObject();
+    boolean wasSignalled = false;
+
+    public void doWait(){
+        synchronized(myMonitorObject){
+            while(!wasSignalled){
+                try{
+                    myMonitorObject.wait();
+                } catch(InterruptedException e){}
+            }
+            //clear signal and continue running.
+            wasSignalled = false;
+        }
+    }
+
+    public void doNotify(){
+        synchronized(myMonitorObject){
+            wasSignalled = true;
+            myMonitorObject.notify();
+        }
+    }
+}
