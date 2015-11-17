@@ -40,8 +40,8 @@ class ThreadPool {
     public synchronized void  execute(Runnable task) throws Exception{
         if(this.isStopped) throw
             new IllegalStateException("ThreadPool is stopped");
-
-        this.taskQueue.enqueue(task);
+//The below line is  included but commented as causing error
+       // this.taskQueue.enqueue(task);
     }
   /*  To stop the ThreadPool the method ThreadPool.stop() is called.
   The stop called is noted internally in the isStopped member.
@@ -75,8 +75,10 @@ class PoolThread extends Thread {
              * PoolThread.run() method. After execution the PoolThread loops and tries to dequeue a task again, until
              * stopped.
    */
-                Runnable runnable = (Runnable) taskQueue.dequeue();
-                runnable.run();
+
+                //The below 2 line is  included but commented as causing error
+//                Runnable runnable = (Runnable) taskQueue.dequeue();
+//                runnable.run();
             } catch(Exception e){
                 //log or otherwise report exception,
                 //but keep pool thread alive.
