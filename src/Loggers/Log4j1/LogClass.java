@@ -1,4 +1,4 @@
-package Loggers.Log4j;
+package Loggers.Log4j1;
 
 /**
  * Created by chetan on 23/11/16.
