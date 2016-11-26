@@ -13,6 +13,7 @@ class ProdCons1
       new Consumer (s).start ();
    }
 }
+
 class Shared
 {
    private char c = '\u0000';
