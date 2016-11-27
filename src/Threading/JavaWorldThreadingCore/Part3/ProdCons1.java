@@ -13,16 +13,18 @@ class ProdCons1
       new Consumer (s).start ();
    }
 }
-
+//both producer and consumer have this in their constructor
 class Shared
 {
    private char c = '\u0000';
+    //through the below method producer and consumer share their data
    void setSharedChar (char c) { this.c = c; }
    char getSharedChar () { return c; }
 }
 class Producer extends Thread
 {
    private Shared s;
+  //
    Producer (Shared s)
    {
       this.s = s;

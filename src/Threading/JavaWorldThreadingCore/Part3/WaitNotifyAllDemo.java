@@ -4,6 +4,14 @@ package Threading.JavaWorldThreadingCore.Part3;
  * Created by chetan on 26/11/16.
  */
 // WaitNotifyAllDemo.java
+   /*
+   So when we see output it is clear that when main sleeps other thread gets a chance to run ,
+    then wait gets executed on
+all one by one and after some time main will get awake and kick off notifyall
+
+    One by one, each thread leaves its synchronized statement and run() method, then terminates.
+
+    */
 class WaitNotifyAllDemo
 {
    public static void main (String [] args)
