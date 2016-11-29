@@ -53,6 +53,7 @@ public class ReadWebPage
             public List<String> call()
                     throws IOException, MalformedURLException
             {
+                //this is just a task that would be executed
                 List<String> lines = new ArrayList<>();
                 URL url = new URL(args[0]);
                 HttpURLConnection con;
@@ -71,6 +72,7 @@ public class ReadWebPage
         The callable is subsequently submitted to the executor
         and a future representing the list of strings is returned
          */
+            //This will always return future
         Future<List<String>> future = executor.submit(callable);
         try
         {
@@ -106,4 +108,13 @@ public class ReadWebPage
     }
 }
 
+/*
+use it like
 
+java https://www.google.com
+
+
+
+
+
+ */

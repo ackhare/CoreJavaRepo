@@ -17,8 +17,9 @@ public class SemaphoreDemo
 {
     public static void main(String[] args)
     {
+        //is use to put items
         final Pool pool = new Pool();
-        Runnable r = new Runnable()
+        Runnable runnable = new Runnable()
         {
             @Override
             public void run()
@@ -26,6 +27,7 @@ public class SemaphoreDemo
                 String name = Thread.currentThread().getName();
                 try
                 {
+                    //infinite loop
                     while (true)
                     {
                         String item;
@@ -50,7 +52,7 @@ public class SemaphoreDemo
         for (int i = 0; i < executors.length; i++)
         {
             executors[i] = Executors.newSingleThreadExecutor();
-            executors[i].execute(r);
+            executors[i].execute(runnable);
             //executor executing runnable
         }
     }
@@ -60,17 +62,27 @@ final class Pool
 {
     public static final int MAX_AVAILABLE = 10;
 
+    /**
+     * The below constructor Creates a {@code Semaphore} with the given number of
+     * permits and the given fairness setting.
+     *
+     * @param permits the initial number of permits available.
+     *        This value may be negative, in which case releases
+     *        must occur before any acquires will be granted.
+     * @param fair {@code true} if this semaphore will guarantee
+     *        first-in first-out granting of permits under contention,
+     *        else {@code false}
+     */
     private Semaphore available = new Semaphore(MAX_AVAILABLE, true);
     private String[] items;
     private boolean[] used = new boolean[MAX_AVAILABLE];
-    /*
-                            Pool provides String getItem() and void putItem(String item) methods for obtaining and returning
-                             resources.
+//
+    //Pool provides String getItem() and void putItem(String item) methods for obtaining and returning
+                            // resources.
 
-
-                             */
     Pool()
     {
+
         items = new String[MAX_AVAILABLE];
         for (int i = 0; i < items.length; i++)
             items[i] = "ITEM"+i;
@@ -79,26 +91,30 @@ final class Pool
     String getItem() throws InterruptedException
     {
        /*
-       Before obtaining an item in getItem(), a thread must acquire a permit from the semaphore, guaranteeing that an
-              item is available for use.
+       Before obtaining an item in getItem(), a thread must acquire a permit from
+       the semaphore, guaranteeing that an item is available for use.
         */
-        available.acquire();
+        available.acquire();//permit acquiring guaranteeing that an item is available for use.
         return getNextAvailableItem();
     }
 
     void putItem(String item)
     {
        /* When the thread has finished with the item, it calls putItem(String), which returns
-        the item to the pool and then returns a permit to the semaphore, which lets another thread acquire that item.
+        the item to the pool and then returns a permit to the semaphore,
+        which lets another thread acquire that item.
         */
         if (markAsUnused(item))
-            available.release();
+            available.release();//returns a permit to the semaphore,
     }
-    /*No synchronization lock is held when acquire() is called because that would prevent an item from being returned to the
-pool. However, String getNextAvailableItem() and boolean markAsUnused(String item) are synchronized to maintain pool
-consistency. (The semaphore encapsulates the synchronization needed to restrict access to the pool separately from the
-synchronization needed to maintain pool consistency.)
+    /*No synchronization lock is held when acquire() is called because that would prevent an item
+    from being returned to the pool.
+    However, String getNextAvailableItem() and boolean markAsUnused(String item) are synchronized
+    to maintain pool consistency. (The semaphore encapsulates the synchronization needed to restrict
+     access to the pool separately from the synchronization needed to maintain pool consistency.
    */
+
+    //below both are syncronized
     private synchronized String getNextAvailableItem()
     {
         for (int i = 0; i < MAX_AVAILABLE; ++i)
@@ -130,3 +146,32 @@ synchronization needed to maintain pool consistency.)
         return false;
     }
 }
+/*
+A part of output
+
+pool-1-thread-1 acquiring ITEM0
+pool-10-thread-1 acquiring ITEM9
+pool-9-thread-1 acquiring ITEM8
+pool-8-thread-1 acquiring ITEM7
+pool-7-thread-1 acquiring ITEM6
+pool-6-thread-1 acquiring ITEM5
+pool-5-thread-1 acquiring ITEM4
+pool-4-thread-1 acquiring ITEM3
+pool-3-thread-1 acquiring ITEM2
+pool-2-thread-1 acquiring ITEM1
+pool-6-thread-1 putting back ITEM5
+pool-11-thread-1 acquiring ITEM5
+pool-9-thread-1 putting back ITEM8
+pool-6-thread-1 acquiring ITEM8
+pool-1-thread-1 putting back ITEM0
+pool-9-thread-1 acquiring ITEM0
+pool-3-thread-1 putting back ITEM2
+pool-1-thread-1 acquiring ITEM2
+pool-4-thread-1 putting back ITEM3
+pool-3-thread-1 acquiring ITEM3
+pool-8-thread-1 putting back ITEM7
+pool-4-thread-1 acquiring ITEM7
+pool-5-thread-1 putting back ITEM4
+pool-8-thread-1 acquiring ITEM4
+
+ */

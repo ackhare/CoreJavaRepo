@@ -16,8 +16,8 @@ class CalcPI3
      try
       {
           System.out.println(Thread.currentThread().getName());
-          mt.join ();
-
+          mt.join ();//the thread that dies is mt
+System.out.println(Thread.currentThread().getName()+"!!");
       }
       catch (InterruptedException e)
       {
