@@ -84,3 +84,11 @@ public class PhaserDemo
         phaser.arriveAndDeregister();
     }
 }
+
+
+/*
+Thread-0 running at 1481476918807
+Thread-1 running at 1481476918807
+
+Process finished with exit code 0
+ */
