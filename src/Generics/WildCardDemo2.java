@@ -2,6 +2,7 @@ package Generics;
 //This demo shows a way to overcome the issue we faced with extension to generics and type casting
 
 import java.util.*;
+//This below class was not in orignal , it was introduced for testing super iun formal parametre
 abstract class AbstractShape {
     abstract void draw();
 }
@@ -61,7 +62,7 @@ class WildCardDemo2 {
         drawShapesWithUpperBound(rectangleList);
 
         drawShapesWithUpperBound(circleList);
-        //In both  Shape is inclusive   Triangle            <? extends Shape>
+        //In both cases of (extends and super)  Shape is inclusive   Triangle            <? extends Shape>
         drawShapesWithUpperBound(list);
 
         drawShapesWithLowerBound(list);
