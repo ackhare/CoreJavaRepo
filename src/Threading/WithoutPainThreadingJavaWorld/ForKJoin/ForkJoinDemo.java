@@ -17,6 +17,7 @@ The key to this class is the overriding protected void compute() method,
 which is called by a worker thread to sort part of the array.
  */
 public class ForkJoinDemo {
+    //nested class
     static class SortTask extends RecursiveAction {
         private final long[] array;
         //lower and upper bound of array
@@ -92,6 +93,11 @@ public class ForkJoinDemo {
         ForkJoinPool pool = new ForkJoinPool();
         startTime = System.currentTimeMillis();
         //Now the above sorttask of recursve action isa called
+        /*
+        The key to this class is the overriding protected void compute() method,
+        which is called by a worker thread to sort part of the array.
+
+         */
         pool.invoke(new SortTask(array2));
         /*
      poo.invoke()--->        * Performs the given task, returning its result upon completion.
