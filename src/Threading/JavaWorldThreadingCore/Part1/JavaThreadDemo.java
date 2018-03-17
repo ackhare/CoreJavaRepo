@@ -1,7 +1,7 @@
 package Threading.JavaWorldThreadingCore.Part1;
 
 import Utility.CustomLogger;
-import org.apache.log4j.Logger;
+
 
 /**
  * Created by chetan on 26/11/16.
@@ -20,12 +20,12 @@ class ThreadDemo
     //   Class ThreadDemo drives the application by creating a MyThread object,
 //       starting a thread that associates with that object,
 //       and executing some code to print a table of squares.
-        org.apache.log4j.Logger log= (Logger) CustomLogger.intiateLogging(ThreadDemo.class);
+        //org.apache.log4j.Logger log= (Logger) CustomLogger.intiateLogging(ThreadDemo.class);
 //       log.info("Intiating thread");
       MyThread mt = new MyThread();
        //a thread is started
       mt.start ();
-       log.info("thread started");
+      // log.info("thread started");
       for (int i = 0; i < 50; i++) {
           System.out.println("In class main "+Thread.currentThread().getName());
           System.out.println("i = " + i + ", i * i = " + i * i);
@@ -35,7 +35,7 @@ class ThreadDemo
 class MyThread extends Thread
 {
     //orignal run of thread class has nothing so it is always nice to override it
-   org.apache.log4j.Logger log= (Logger) CustomLogger.intiateLogging(ThreadDemo.class);
+   //org.apache.log4j.Logger log= (Logger) CustomLogger.intiateLogging(ThreadDemo.class);
    public void run ()
    {
       for (int count = 1, row = 1; row < 20; row++, count++)
