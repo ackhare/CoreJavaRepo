@@ -9,8 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //Child child = new Parent();
-        //compile time error(Incompatible types)
+        //Child child = new Parent();//compile time error(Incompatible types)
 
         Parent parent1 = new Child();
         //parent.x   //compile time error as non static cannot be refrenced fromstatic

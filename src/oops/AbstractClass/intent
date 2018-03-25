@@ -1,0 +1,6 @@
+An abstract class can have aconstructor but will give Compilation error on
+new AbstractClass();
+To invoke its constructor we can simply use
+AbstractClass abstractClass =new Child()
+//provided child is a concrete impl of abstract class
+//If both of them have constructors above line will print it in that order
